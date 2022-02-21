@@ -1,3 +1,4 @@
+properties([pipelineTriggers([githubPush()])])
 def label = "worker-${UUID.randomUUID().toString()}"
 
 podTemplate(label: label, containers: [
@@ -9,6 +10,7 @@ volumes: [
   hostPathVolume(mountPath: '/mnt', hostPath: '/mnt')
 ]) {
   node(label) {
+       git url: "https://github.com/ngo-l/jenkins-demo",branch: 'master'
 //     def myRepo = checkout scm
 //     def gitCommit = myRepo.GIT_COMMIT
 //     def gitBranch = myRepo.GIT_BRANCH
